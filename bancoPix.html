@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco Pix</title>
+</head>
+
+<body>
+    <h1>Banco da Etec - Transferencia Pix.</h1>
+    <h3>
+        <p id="nota1"></p>
+        <p id="nota2"></p>
+    </h3>
+    <script>
+        let cpf = [];
+        let nome = [];
+        let saldo = [];
+        let n = 0;
+
+        let nomeOrigem;
+        let cpfOrigem;
+        let antes1;
+        let depois1;
+
+        let nomeDestino;
+        let cpfDestino;
+        let antes2;
+        let depois2;
+
+        let inicio = Number(prompt("Escolha a operação: \n 1 - Cadastrar conta \n 2 - Fazer o Pix \n 3 - Sair"));
+        while (inicio == 1 || inicio == 2) {
+
+
+            switch (inicio) {
+                case 1:
+                    let cpf1 = Number(prompt("Digite o cpf"));
+                    let nome1 = prompt("Digite o nome");
+                    let saldo1 = Number(prompt("Digite o saldo"));
+
+                    cadastrarConta(cpf1, nome1, saldo1);
+
+                    break;
+                case 2:
+
+                    let cpfA = Number(prompt("Digite o cpf de origem"));
+                    cpfOrigem = cpfA
+                    let valor = Number(prompt("Digite o valor"));
+                    let cpfB = Number(prompt("Digite o cpf de destino"));
+                    cpfDestino = cpfB
+                    fazerPix(cpfA, valor, cpfB);
+
+                    break;
+                case 3:
+                    alert("3");
+                    break;
+                default:
+                    break;
+            }
+            inicio = Number(prompt("Escolha a operação: \n 1 - Cadastrar conta \n 2 - Fazer o Pix \n 3 - Sair"));
+        }
+        function cadastrarConta(cpf1, nome1, saldo1) {
+            n++;
+            cpf[n] = cpf1;
+            nome[n] = nome1;
+            saldo[n] = saldo1;
+
+            alert("Cpf: " + cpf[n] + " Cliente: " + nome[n] + " Saldo: " + saldo[n]);
+        }
+
+        function fazerPix(cpfA, valor, cpfB) {
+            //localizar o cpfA
+            for (let index = 0; index < cpf.length; index++) {
+                if (cpfA === cpf[index]) {
+                   // ale   rt(cpfA + cpf[index]);
+                    if (saldo[index] >= valor) {
+                        saldo[index] = saldo[index] - valor;
+                        
+                        nomeOrigem = nome[index]
+                        antes1 = saldo[index] + valor
+                        depois1 = saldo[index]
+                        
+                        alert("Pix realizado");
+                    } else {
+                        alert("Vc não tem dinheiro")
+                    }
+                } 
+            }
+            for (let i = 0; i < cpf.length; i++) {
+                if (cpfDestino === cpf[i]){
+                    nomeDestino = nome[i]
+                    antes2 = saldo[i]
+                    depois2 = antes2 + valor
+                }
+            }
+            //ver se o cpfa tem dinheiro
+        }
+       
+
+        document.getElementById("nota1").innerHTML = "Origem</br>Nome: " + nomeOrigem + "</br>CPF: " + cpfOrigem + "</br>Antes: " + antes1 + "</br>Depois: " + depois1
+        document.getElementById("nota2").innerHTML = "Destino</br>Nome: " + nomeDestino + "</br>CPF: " + cpfDestino + "</br>Antes: " + antes2 + "</br>Depois: " + depois2
+
+    </script>
+</body>
+
+</html>
